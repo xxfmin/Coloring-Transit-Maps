@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+  
+<h1>Generate Line Colors</h1>
+
+<style>
+  h1 {
+  text-align: center;
+  position: absolute;
+  top:31%;
+  left:10%;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 70px;
+  font-weight:110;
+  width:80%;
+  color: black;
+  text-align: center;
+  }
+</style>
+  
+  <script>
+    function generateLines(){
+      var lineCount = document.getElementById("lineCount").value;
+      var lines = "";
+      for (var i = 0; i < lineCount; i++) {
+        var red = Math.floor(Math.random() * 256);
+        var green = Math.floor(Math.random() * 256);
+        var blue = Math.floor(Math.random() * 256);
+        var color = "rgb(" + red + "," + green + "," + blue + ")";
+        lines += "<p style='color: " + color + ";'>-----------</p>";
+      }
+      document.getElementById("lines").innerHTML = lines;
+    }
+    generateLines();
+    
+  </script>
+  
+<p>Enter a number to generate colors:</p>
+
+<input type="number" id="lineCount">
+<button onclick="generateLines()">Generate</button>
+  <br>
+  <br>
+  <div id="lines"></div>
+  <style>
+    div {
+      top:121;
+      left:10%;
+      font-size: 50px;
+      font-weight:50;
+      text-align: left;
+    }
+  </style>
+  <script>
+    
+</body>
+</html>

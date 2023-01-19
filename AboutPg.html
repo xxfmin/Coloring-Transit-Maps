@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UropWeb</title>
+</head>
+<body>
+  <style>
+    body {
+      background-color:black;
+    }
+  </style>
+  <h1>ABOUT</h1>
+      <style>
+  </style>
+
+  <style>
+    button.arrow {
+      border: none;
+      background: transparent;
+      font-size: 24px;
+      cursor: pointer;
+      color:white;
+    }
+    body {
+      background-repeat: no-repeat;
+      font-family: Georgia, sans-serif;
+      color: black;
+    }
+    
+    h1 {
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 70px;
+      font-weight:110;
+      text-align: center;
+      color: white;
+      top: 50;
+    }
+    
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+    div.box {
+      border: 1px solid black;
+      padding: 60px;
+      text-align: center;
+      color: white;
+      position: sticky;
+      left: 10;
+      bottom: 30;
+      width: 500px;
+      overflow: auto;
+    }
+
+  </style>
+  
+  <div class="box">
+    
+    <p id="textBox">Subways maps have been considered to be a useful tool in navigating transportation in the everyday life of a commuter. However, there seems to be a deficiency in current subways maps not taking into account color blind individuals, making it inaccessible for them to easily read subway systems. There has been extensive research into improving the legibility of transit maps by using techniques like altering the geography (reword this https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14030) however, development on algorithmically selecting the optimal colors can be neglected. We aim to produce a program that can compute several dots on a graph that are as different as possible from one another, making them easier to read by the consumer. For this particular research topic, we use Colorspacious, a python library, to code a series of colors that are as far apart in the CIECAM02-UCS color space as possible, while taking into account different types of color blindness.We expect this research approach to improve the quality of virtual subways maps, making them easier to read and more accessible to use for individuals with color vision deficiency..</p>
+  
+    <button class="arrow" onclick="changeText()">&#9658;</button>
+  </div>
+  
+  <script>
+    function changeText() {
+      var textChange = document.getElementById("textBox");
+      if (textChange.innerHTML === "Subways maps have been considered to be a useful tool in navigating transportation in the everyday life of a commuter. However, there seems to be a deficiency in current subways maps not taking into account color blind individuals, making it inaccessible for them to easily read subway systems. There has been extensive research into improving the legibility of transit maps by using techniques like altering the geography (reword this https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14030) however, development on algorithmically selecting the optimal colors can be neglected. We aim to produce a program that can compute several dots on a graph that are as different as possible from one another, making them easier to read by the consumer. For this particular research topic, we use Colorspacious, a python library, to code a series of colors that are as far apart in the CIECAM02-UCS color space as possible, while taking into account different types of color blindness.We expect this research approach to improve the quality of virtual subways maps, making them easier to read and more accessible to use for individuals with color vision deficiency.") 
+      {
+        textChange.innerHTML = "CHANGE THE TEXT";
+      } 
+      else {
+        textChange.innerHTML = "Subways maps have been considered to be a useful tool in navigating transportation in the everyday life of a commuter. However, there seems to be a deficiency in current subways maps not taking into account color blind individuals, making it inaccessible for them to easily read subway systems. There has been extensive research into improving the legibility of transit maps by using techniques like altering the geography (reword this https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14030) however, development on algorithmically selecting the optimal colors can be neglected. We aim to produce a program that can compute several dots on a graph that are as different as possible from one another, making them easier to read by the consumer. For this particular research topic, we use Colorspacious, a python library, to code a series of colors that are as far apart in the CIECAM02-UCS color space as possible, while taking into account different types of color blindness.We expect this research approach to improve the quality of virtual subways maps, making them easier to read and more accessible to use for individuals with color vision deficiency.";
+      }
+    }
+  </script>
+  <img src="graph1.png">
+  <img src="graph2.png">
+
+</body>
+</html>
+
