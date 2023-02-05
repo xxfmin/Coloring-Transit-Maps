@@ -7,19 +7,13 @@ function rgbToLin(C_srgb)
 {
 	let out = [];
 	a = 0.055;
-	if(C_srgb < 0.04045)
+	for(let i = 0; i < 3; i++)
 	{
-		out[0] =  C_srgb[0] / 12.92;
-		out[1] = C_srgb[1] / 12.92;
-		out[2] = C_srgb[2] / 12.92;
+		if(C_srgb[i] < 0.0405)
+			out[i] = C_srgb[i] / 12.92;
+		else
+			out[i] = ((C_srgb[i] + a) / (a + 1)) ** 2.4;
 	}
-	else{
-		linear_portion = 0;
-		out[0] = ((C_srgb[0] + a) / (a + 1)) ** 2.4
-		out[1] = ((C_srgb[1] + a) / (a + 1)) ** 2.4
-		out[2] = ((C_srgb[2] + a) / (a + 1)) ** 2.4
-	}
-
     return out
 
 }
@@ -53,7 +47,7 @@ function linToOk(c)
        
 }
 
-	color1 = [100,23,210]; // color1 = rgb255
+	color1 = [23,55, 211]; // color1 = rgb255
 	color2 = rgb255ToRgb1(color1); // color2 = rgb1
 	console.log(color2);
 	color3 = rgbToLin(color2); // color3 = rgb1-linear
