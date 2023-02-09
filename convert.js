@@ -46,7 +46,15 @@ function linToOk(c)
 	]
        
 }
-
+function rgb255toLin(c)
+{
+	return rgbToLin(rgb255ToRgb1(c));
+}
+function rgb255toOk(c)
+{
+	return linToOk(rgbToLin(rgb255ToRgb1(c)));
+}
+/*
 	color1 = [23,55, 211]; // color1 = rgb255
 	color2 = rgb255ToRgb1(color1); // color2 = rgb1
 	console.log(color2);
@@ -56,3 +64,4 @@ function linToOk(c)
 	console.log(color4);
 	color5 = linToOk(color3); // color5 = oklab
 	console.log(color5);
+*/
