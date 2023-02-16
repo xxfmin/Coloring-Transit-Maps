@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="distance.js"></script>  
-    <script src="convert.js"></script>
+
 </head>
 <body>
   
+<script src="convert.js"></script>
+<script src="generate.js"></script>
+
 <h1>Generate Line Colors</h1>
 
 <style>
@@ -27,10 +29,11 @@
     function generateLines(){
       var lineCount = document.getElementById("lineCount").value;
       var lines = "";
+      colorset = reOptimize(lineCount);
       for (var i = 0; i < lineCount; i++) {
-        var red = Math.floor(Math.random() * 256);
-        var green = Math.floor(Math.random() * 256);
-        var blue = Math.floor(Math.random() * 256);
+        var red = colorset[i][0];
+        var green = colorset[i][1];
+        var blue = colorset[i][2];
         var color = "rgb(" + red + "," + green + "," + blue + ")";
         lines += "<p style='color: " + color + ";'>-----------</p>";
       }
@@ -39,6 +42,8 @@
   //generateLines();
     
   </script>
+
+
 
 
   

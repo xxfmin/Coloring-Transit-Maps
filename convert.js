@@ -21,11 +21,10 @@ function linToCvd(mat2)
 {
 	let mat1 = [ [ 0.367322, 0.860646, -0.227968 ], [ 0.280085, 0.672501, 0.047413], [-0.011820, 0.042940, 0.968881] ];
 
-	console.log(mat1[0][0] + "*" + mat2[0] + " + " + mat1[0][1] + "*" + mat2[0]);
+	//console.log(mat1[0][0] + "*" + mat2[0] + " + " + mat1[0][1] + "*" + mat2[0]);
 	r = mat1[0][0]*mat2[0] + mat1[0][1]*mat2[1] + mat1[0][2]*mat2[2];
 	g = mat1[1][0]*mat2[0] + mat1[1][1]*mat2[1] + mat1[1][2]*mat2[2];
 	b = mat1[2][0]*mat2[0] + mat1[2][1]*mat2[1] + mat1[2][2]*mat2[2];
-
 	return [r,g,b];
 }
 
@@ -48,11 +47,19 @@ function linToOk(c)
 }
 function rgb255toLin(c)
 {
-	return rgbToLin(rgb255ToRgb1(c));
+	out = rgb255ToRgb1(c)
+	return rgbToLin(out);
 }
 function rgb255toOk(c)
 {
-	return linToOk(rgbToLin(rgb255ToRgb1(c)));
+	out = rgb255toLin(c)
+	return linToOk(out)
+}
+function rgbToOkCvd(c)
+{
+	out = rgb255toLin(c);
+	out = linToCvd(out);
+	return linToOk(out);
 }
 /*
 	color1 = [23,55, 211]; // color1 = rgb255

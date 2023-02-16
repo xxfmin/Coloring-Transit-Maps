@@ -22,7 +22,7 @@ function calcDist(color1, color2)
 function minDist(colors)
 {
     let min = [];
-    let mindist = calcDist([0,0,0], [1,1,1]); // distance between black and white
+    let mindist = calcDist([1,0,0], [0,0,0]); // distance between black and white
     for(var i = 0; i < colors.length-1; i++)
     {
         for(var j = i+1; j < colors.length; j++)
@@ -42,24 +42,83 @@ function genColors(n)
 {
     let maxDist = 0;
     let colorSet = [[]];
-    for(var i = 0; i < 100; i++)
+    let newColors = [[]];
+
+    for(var i = 0; i < 250; i++)
     {
         let colors = randColors(n)
+
         for(var j = 0; j < n; j++)
         {
-            colors[j] = rgb255ToRgb1(colors[j]);
+            newColors[j] = rgb255toOk(colors[j]);
         }
-        let dist = minDist(colors);
+        let dist = minDist(newColors);
         if(dist > maxDist)
         {
             maxDist = dist;
             colorSet = colors;
         }
     }
+    //console.log(maxDist);
     return colorSet;
 }
 
-console.log(genColors(5));
+function genColorblindColors(n)
+{    
+    let maxDist = 0;
+    let colorSet = [[]];
+    let newColors = [[]];
+
+    for(var i = 0; i < 300; i++)
+    {
+        let colors = randColors(n)
+
+        for(var j = 0; j < n; j++)
+        {
+            newColors[j] = rgbToOkCvd(colors[j])
+
+        }
+        let dist = minDist(newColors);
+        if(dist > maxDist)
+        {
+            maxDist = dist;
+            colorSet = colors;
+        }
+    }
+    //console.log(maxDist);
+
+    return colorSet;
+}
+
+function reOptimize(n)
+{
+    let colorSets = [genColorblindColors(n), genColorblindColors(n), genColorblindColors(n), genColorblindColors(n), genColorblindColors(n)]
+    let bestSet = [[]];
+    let maxDist = 0;
+
+    for(var i = 0; i < 5; i++)
+    {
+        let newColors = [[]];
+        for(var j = 0; j < n; j++)
+        {
+            newColors[j] = rgb255toOk(colorSets[i][j]);
+        }
+        var dist = minDist(newColors);
+        if(dist > maxDist)
+        {
+            maxDist = dist;
+            bestSet = colorSets[i];
+        }
+    }
+    // console.log(colorSets);
+    // console.log(bestSet);
+    console.log(maxDist);
+    return bestSet;
+
+}
+//reOptimize(6);
+//console.log(minDist([1,0,0], [0,0,0]))
+//console.log(genColorblindColors(5));
 //rgb255toOk(randColors(5));
 //console.log(colors);
 //colors = ()
