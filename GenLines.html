@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-
-</head>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      
+      
+      
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      
+      
 <body>
   
-<script src="convert.js"></script>
-<script src="generate.js"></script>
-
 <h1>Generate Line Colors</h1>
 
 <style>
   h1 {
   text-align: center;
   position: absolute;
-  top:31%;
+  top:11%;
   left:10%;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 70px;
@@ -25,46 +42,145 @@
   }
 </style>
   
+  <form>
+    <select id="dropDown">
+      <option value = none> Adjust for Color Blindness</option>
+      <option value = "option 1">Red/Green</option>
+      <option value = "option 2"> Blue/Yellow</option>
+    </select>
+  </form>
+
+    <script>  
+      function convertRGBColors(r, g, b, d = 0.9) {
+        const i = 1 + d;
+        
+        // Correct for red-green color blindness
+        const rl = (r * d + g) / i;
+        const gl = (g * d + r) / i;
+        
+        return [rl, gl, b];
+      }
+      
+      function filter() {
+    var select = document.getElementById("dropDown");
+    var selectedValue = select.options[select.selectedIndex].value;
+    if (selectedValue === "Red/Green") 
+      {
+        convertRGBColors(r, g, b, d = 0.9);
+      } 
+    if (selectedValue === "Blue/Yellow")
+      {
+        
+      }
+    else
+      {
+          generateLines();
+      }
+      }</script>
+  
+
+
   <script>
     function generateLines(){
       var lineCount = document.getElementById("lineCount").value;
       var lines = "";
-      colorset = reOptimize(lineCount);
       for (var i = 0; i < lineCount; i++) {
-        var red = colorset[i][0];
-        var green = colorset[i][1];
-        var blue = colorset[i][2];
+        var red = Math.floor(Math.random() * 256);
+        var green = Math.floor(Math.random() * 256);
+        var blue = Math.floor(Math.random() * 256);
         var color = "rgb(" + red + "," + green + "," + blue + ")";
-        lines += "<p style='color: " + color + ";'>-----------</p>";
+        lines += "<p style='color: " + color + ";'>-------------------------------</p>";
       }
       document.getElementById("lines").innerHTML = lines;
     }
-  //generateLines();
+    generateLines();
+    function rgb255ToRgb1(a)
+    {
+      return [a[0]/255, a[1]/255, a[2]/255];
+    }
+    function rgbToLin(C_srgb)
+    {
+      let out = [];
+      a = 0.055;
+      for(let i = 0; i < 3; i++)
+        {
+          if(C_srgb[i] < 0.0405)
+            out[i] = C_srgb[i] / 12.92;
+          else
+            out[i] = ((C_srgb[i] + a) / (a + 1)) ** 2.4;
+        }
+      return out
+      
+    }
+    function linToCvd(mat2)
+    {
+      let mat1 = [ [ 0.367322, 0.860646, -0.227968 ], [ 0.280085, 0.672501, 0.047413], [-0.011820, 0.042940, 0.968881] ];
+      
+      console.log(mat1[0][0] + "*" + mat2[0] + " + " + mat1[0][1] + "*" + mat2[0]);
+      r = mat1[0][0]*mat2[0] + mat1[0][1]*mat2[1] + mat1[0][2]*mat2[2];
+      g = mat1[1][0]*mat2[0] + mat1[1][1]*mat2[1] + mat1[1][2]*mat2[2];
+      b = mat1[2][0]*mat2[0] + mat1[2][1]*mat2[1] + mat1[2][2]*mat2[2];
+      
+      return [r,g,b];
+    }
     
+    function linToOk(c)
+    {
+      l = 0.4122214708 * c[0] + 0.5363325363 * c[1] + 0.0514459929 * c[2];
+      m = 0.2119034982 * c[0] + 0.6806995451 * c[1] + 0.1073969566 * c[2];
+      s = 0.0883024619 * c[0] + 0.2817188376 * c[1] + 0.6299787005 * c[2];
+      
+      l_ = Math.cbrt(l);
+      m_ = Math.cbrt(m);
+      s_ = Math.cbrt(s);
+      
+      return [
+        0.2104542553*l_ + 0.7936177850*m_ - 0.0040720468*s_,
+        1.9779984951*l_ - 2.4285922050*m_ + 0.4505937099*s_,
+        0.0259040371*l_ + 0.7827717662*m_ - 0.8086757660*s_,
+      ]
+      
+    }
+    
+    color1 = [23,55, 211]; // color1 = rgb255
+    color2 = rgb255ToRgb1(color1); // color2 = rgb1
+    console.log(color2);
+    color3 = rgbToLin(color2); // color3 = rgb1-linear
+    console.log(color3);
+    color4 = linToCvd(color3); // color4 = cvd
+    console.log(color4);
+    color5 = linToOk(color3); // color5 = oklab
+    console.log(color5);
   </script>
-
-
-
-
   
 <p>Enter a number to generate colors:</p>
 
+
 <input type="number" id="lineCount">
 <button onclick="generateLines()">Generate</button>
-  <br>
   <br>
   <div id="lines"></div>
   <style>
     div {
       top:121;
-      left:10%;
-      font-size: 50px;
-      font-weight:50;
+      left:50%;
+      font-size: 80px;
+      font-weight:50px;
       text-align: left;
     }
+    label{
+      top:70px;
+    }
+    p{
+      top:70;
+      left:50%;
+      font-size: 15px;
+    }
+    
+    
   </style>
-
-
+  <script>
     
 </body>
 </html>
+    
