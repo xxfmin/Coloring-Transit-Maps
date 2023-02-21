@@ -1,11 +1,30 @@
+function randomColor()
+{
+    let c = [];
+    c[0] = Math.floor(Math.random() * 256);
+    c[1] = Math.floor(Math.random() * 256);
+    c[2] = Math.floor(Math.random() * 256);
+    return c;
+}
+function checkBrightness(color)
+{
+    color = rgb255toOk(color);
+    if(color[0] > 0.2 && color[0] < 0.85)
+    {
+        return true;
+    }
+    return false;
+}
 function randColors(n) // input n colors
 {
     let colors = [];
     for (var i = 0; i < n; i++) {
-        colors[i] = [];
-        colors[i][0] = Math.floor(Math.random() * 256); // generate rand num between 0-255
-        colors[i][1] = Math.floor(Math.random() * 256);
-        colors[i][2] = Math.floor(Math.random() * 256);
+        let color = randomColor();
+        while(!checkBrightness(color))
+        {
+            color = randomColor();
+        }
+        colors[i] = color;
     }
     //console.log(colors);
     return colors;
@@ -53,6 +72,26 @@ function genColors(n) { // generates colorset of n colors (normal vision)
     return colorSet;
 }
 
+function genColors2(n) {
+    let colors = randColors(n)
+    var i = 0
+    while(i < n){
+        
+    }
+    for (var i = 0; i < 300; i++) {
+        let colors = randColors(n)
+
+        for (var j = 0; j < n; j++) {
+            newColors[j] = rgb255toOk(colors[j]);
+        }
+        let dist = minDist(newColors);
+        if (dist > maxDist) {
+            maxDist = dist;
+            colorSet = colors;
+        }
+    }
+}
+
 function genColorblindColors(n) { // generates n colors (cvd)
     let maxDist = 0;
     let colorSet = [[]];
@@ -95,6 +134,7 @@ function reOptimize(n) { // optimizes for noraml vision after colorblind
     // console.log(colorSets);
     // console.log(bestSet);
     console.log(maxDist);
+    console.log(bestSet);
     return bestSet;
 
 }
