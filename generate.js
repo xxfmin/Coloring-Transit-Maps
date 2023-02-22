@@ -174,7 +174,7 @@ function reOptimize2(n){
             newColorSet[i][j] = newColorSet[i][j] + (rand * v[j]);
         }
     }
-    return newColorSet;
+    return newColorSet; // linear color space
 }
 
 console.log(reOptimize2(7));

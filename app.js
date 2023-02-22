@@ -1,12 +1,3 @@
-function convertRGBColors(r, g, b, d = 0.9) {
-    const i = 1 + d;
-
-    // Correct for red-green color blindness
-    const rl = (r * d + g) / i;
-    const gl = (g * d + r) / i;
-
-    return [rl, gl, b];
-  }
   function filter() {
     var select = document.getElementById("dropDown");
     var selectedValue = select.options[select.selectedIndex].value;

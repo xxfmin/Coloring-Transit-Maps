@@ -1,0 +1,44 @@
+body {
+    background-color: black;
+}
+
+button.arrow {
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+}
+
+body {
+    background-repeat: no-repeat;
+    font-family: Georgia, sans-serif;
+    color: black;
+}
+
+h1 {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 70px;
+    font-weight: 110;
+    text-align: center;
+    color: white;
+    top: 50;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+
+div.box {
+    border: 1px solid black;
+    padding: 60px;
+    text-align: center;
+    color: white;
+    position: sticky;
+    left: 10;
+    bottom: 30;
+    width: 500px;
+    overflow: auto;
+}
