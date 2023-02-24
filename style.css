@@ -12,6 +12,13 @@ h1{
 #lineCount {
   width: 5em
 }
+.box {
+  width: 50px;
+  height: 50px;
+  background-color: black;
+  display: inline-block;
+  margin: 10px;
+}
 /*
 h1 {
   position: absolute;
