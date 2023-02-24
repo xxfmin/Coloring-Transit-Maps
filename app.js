@@ -39,3 +39,14 @@ function generateNormLines() {
     }
     document.getElementById("lines").innerHTML = lines;
   }
+  
+  function generateBoxes() {
+  const boxCount = document.getElementById("boxCount").value;
+  document.getElementById("boxContainer").innerHTML = "";
+
+  for (let i = 0; i < boxCount; i++) {
+    const box = document.createElement("div");
+    box.classList.add("box");
+    document.getElementById("boxContainer").appendChild(box);
+  }
+}
