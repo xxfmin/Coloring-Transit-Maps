@@ -15,13 +15,24 @@ function rgbToLin(C_srgb)
 			out[i] = ((C_srgb[i] + a) / (a + 1)) ** 2.4;
 	}
     return out
-
+}
+function linToRgb(c_lin)
+{
+	let out = [];
+	a = 0.055;
+	for(let i = 0; i < 3; i++)
+	{
+		if(c_lin[i] < 0.04045)
+			out[i] = c_lin[i] * 12.92;
+		else
+			out[i] = (1+a) * c_lin[i] ** (1/2.4) - a;
+	}
+	return out
 }
 function linToCvd(mat2)
 {
 	let mat1 = [ [ 0.367322, 0.860646, -0.227968 ], [ 0.280085, 0.672501, 0.047413], [-0.011820, 0.042940, 0.968881] ];
 
-	//console.log(mat1[0][0] + "*" + mat2[0] + " + " + mat1[0][1] + "*" + mat2[0]);
 	r = mat1[0][0]*mat2[0] + mat1[0][1]*mat2[1] + mat1[0][2]*mat2[2];
 	g = mat1[1][0]*mat2[0] + mat1[1][1]*mat2[1] + mat1[1][2]*mat2[2];
 	b = mat1[2][0]*mat2[0] + mat1[2][1]*mat2[1] + mat1[2][2]*mat2[2];
@@ -61,14 +72,9 @@ function rgbToOkCvd(c)
 	out = linToCvd(out);
 	return linToOk(out);
 }
-/*
-	color1 = [23,55, 211]; // color1 = rgb255
-	color2 = rgb255ToRgb1(color1); // color2 = rgb1
-	console.log(color2);
-	color3 = rgbToLin(color2); // color3 = rgb1-linear
-	console.log(color3);
-	color4 = linToCvd(color3); // color4 = cvd
-	console.log(color4);
-	color5 = linToOk(color3); // color5 = oklab
-	console.log(color5);
-*/
+
+console.log("hihi");
+color = [.12, .44, .9];
+color1 = rgbToLin(color);
+console.log(color1);
+console.log(linToRgb(color1));

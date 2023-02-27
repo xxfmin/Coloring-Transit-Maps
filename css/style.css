@@ -3,7 +3,7 @@
   }
 
 body {
-    background-color: black;
+    background-color: white;
 }
 
 h1{
@@ -11,12 +11,12 @@ h1{
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 70px;
     font-weight: 110;
-    color: white;
+    color: black;
 
 }
 
 p {
-    color: white;
+    color: black;
     padding: 40px;
     font-weight: 53;
     font-size: 24px;
