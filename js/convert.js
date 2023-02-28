@@ -3,6 +3,10 @@ function rgb255ToRgb1(a)
 {
 	return [a[0]/255, a[1]/255, a[2]/255];
 }
+function rgb1ToRgb255(a)
+{
+	return [a[0]*255, a[1] * 255, a[2] * 255];
+}
 function rgbToLin(C_srgb)
 {
 	let out = [];
@@ -22,7 +26,7 @@ function linToRgb(c_lin)
 	a = 0.055;
 	for(let i = 0; i < 3; i++)
 	{
-		if(c_lin[i] < 0.04045)
+		if(c_lin[i] <= 0.0031308)
 			out[i] = c_lin[i] * 12.92;
 		else
 			out[i] = (1+a) * c_lin[i] ** (1/2.4) - a;
@@ -74,7 +78,13 @@ function rgbToOkCvd(c)
 }
 
 console.log("hihi");
-color = [.12, .44, .9];
-color1 = rgbToLin(color);
+color = [80,1,162];
+color1 = rgb255toLin(color);
 console.log(color1);
-console.log(linToRgb(color1));
+console.log("yea");
+color2 = linToCvd(color1);
+console.log(color2);
+color3 = linToRgb(color2);
+console.log(color3);
+color4 = rgb1ToRgb255(color3);
+console.log(color4);
