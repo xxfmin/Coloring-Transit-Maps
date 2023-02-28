@@ -13,22 +13,10 @@
       generateNormalLines();
     }
   }
-function generateNormLines() {
-    var lineCount = document.getElementById("lineCount").value;
-    var lines = "";
-    colorset = genColors(lineCount);
-    for (var i = 0; i < lineCount; i++) {
-      var red = colorset[i][0];
-      var green = colorset[i][1];
-      var blue = colorset[i][2];
-      var color = "rgb(" + red + "," + green + "," + blue + ")";
-      lines += "<p style='color: " + color + ";'>-------------------------------</p>";
-    }
-    document.getElementById("lines").innerHTML = lines;
-  }
   function generateLines() {
     var lineCount = document.getElementById("lineCount").value;
     var lines = "";
+
     colorset = reOptimize(lineCount);
     for (var i = 0; i < lineCount; i++) {
       var red = colorset[i][0];

@@ -127,30 +127,36 @@ function reOptimize(n) {
     console.log(bestSet);
     return bestSet;
 }
-//reOptimize(6);
 
+// inputs: a vector x in [0,1]^3 and a nonzero vector v in R^3
+// output: the pair [a,b] with a <= b
 function intersectBox(x, v)
 {
-    let a1 = (1-x[0])/v[0];
-    let a2 = -x[1]/v[1];
-    let a3 = (1-x[2])/v[2];
-    let a = Math.max(a1, a2, a3);
-
-    let b1 = -x[0]/v[0];
-    let b2 = (1-x[1])/v[1];
-    let b3 = -x[2]/v[2];
-    let b = Math.min(b1,b2,b3);
-
-    ans = [a,b];
-    return ans
+    let a = Number.NEGATIVE_INFINITY;
+    let b = Number.POSITIVE_INFINITY;
+    for (let i=0; i < 3; i++) {
+        // We will treat numbers within 10e-9 of 0 as close enough to 0.
+        // https://stackoverflow.com/questions/5595425/what-is-the-best-way-to-compare-floats-for-almost-equality-in-python
+        if (v[i] > 10e-9) {
+            a = Math.max(a,-x[i]/v[i]);
+            b = Math.min(b,(1-x[i])/v[i]);
+        } else if (v[i] < -10e-9) {
+            a = Math.max(a,1-x[i]/v[i]);
+            b = Math.min(b,-x[i]/v[i]);
+        } else {
+            // no statement if v == 0
+            // https://stackoverflow.com/questions/35053371/what-is-the-benefit-of-terminating-if-else-if-constructs-with-an-else-clause
+        }
+        return [a,b];
+    }
 }
 
-//gets a random number between a and b
+// Input: pair of numbers a, b with a <= b
+// Output: random floating point number between a and b, inclusive
 function getRandomArbitrary(a,b)
 {
-    return Math.random() * (a - b) + b;
+    return Math.random() * (b - a) + a;
 }
-
 function reOptimize2(n){
     v = [0.92205465, -0.38601957, 0.02835689];
     let colorSet = genColorblindColors(n); // generate rgb255 colorset
@@ -161,6 +167,7 @@ function reOptimize2(n){
     {
         newColorSet[i] = rgb255toLin(colorSet[i]);
     }
+    console.log(newColorSet);
     
     for(let i = 0; i < n; i++)
     {

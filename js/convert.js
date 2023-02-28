@@ -76,15 +76,3 @@ function rgbToOkCvd(c)
 	out = linToCvd(out);
 	return linToOk(out);
 }
-
-console.log("hihi");
-color = [80,1,162];
-color1 = rgb255toLin(color);
-console.log(color1);
-console.log("yea");
-color2 = linToCvd(color1);
-console.log(color2);
-color3 = linToRgb(color2);
-console.log(color3);
-color4 = rgb1ToRgb255(color3);
-console.log(color4);
