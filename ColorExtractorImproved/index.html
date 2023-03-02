@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Colors</title>
+    <style>
+      #input-container {
+        margin: 20px 0;
+      }
+      #color-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+      .color-box {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Image Colors</h1>
+    <div id="input-container">
+      <label for="image-input">Select an image:</label>
+      <input type="file" id="image-input" accept="image/*">
+    </div>
+    <div id="color-container"></div>
+    <script src="backend.js"></script>
+  </body>
+</html>
