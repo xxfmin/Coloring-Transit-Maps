@@ -2,7 +2,7 @@
     padding: 0 !important;
   }
   body {
-    background-color: black;
+    background-color: white;
 }
   
   h1{
@@ -10,7 +10,7 @@
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 70px;
     font-weight: 110;
-    color: white;
+    color: black;
   }
   
   #lineCount {
@@ -24,7 +24,7 @@
     margin: 10px;
   }
   p{
-    color: white;
+    color: wblackhite;
     font-weight: 53;
     font-size: 24px;
     font-family: Arial, sans-serif;

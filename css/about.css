@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: white;
 }
 
 button.arrow {
@@ -7,7 +7,7 @@ button.arrow {
     background: transparent;
     font-size: 24px;
     cursor: pointer;
-    color: white;
+    color: black;
 }
 
 body {
@@ -21,7 +21,7 @@ h1 {
     font-size: 70px;
     font-weight: 110;
     text-align: center;
-    color: white;
+    color: black;
     top: 50;
 }
 
@@ -32,10 +32,10 @@ p {
 }
 
 div.box {
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 60px;
     text-align: center;
-    color: white;
+    color: black;
     position: sticky;
     left: 10;
     bottom: 30;
