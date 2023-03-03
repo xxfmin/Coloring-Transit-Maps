@@ -1,13 +1,14 @@
-function randomColor() // generates one random rgb255 color
+// Output: one random rgb255 color
+function randomColor()
 {
     let c = [];
-    c[0] = Math.floor(Math.random() * 256);
-    c[1] = Math.floor(Math.random() * 256);
-    c[2] = Math.floor(Math.random() * 256);
+    c[0] = Math.floor(Math.random() * 255);
+    c[1] = Math.floor(Math.random() * 255);
+    c[2] = Math.floor(Math.random() * 255);
     return c;
 }
 
-// checks if the rgb255 color is within the lightness bounds of oklab
+// Check if the RGB255 color is within the given lightness bounds inside Oklab
 function checkBrightness(color) 
 {
     color = rgb255toOk(color);
@@ -18,11 +19,12 @@ function checkBrightness(color)
     return false;
 }
 
-//generates n randomcolors that account for brightness
-function randColors(n) // input n colors
+// Input: positive integer n
+// Output: n random colors in RGB255 that account for brightness
+function randColors(n)
 {
     let colors = [];
-    for (var i = 0; i < n; i++) {
+    for (let i = 0; i < n; i++) {
         let color = randomColor();
         while(!checkBrightness(color))
         {
@@ -46,8 +48,8 @@ function calcDist(color1, color2) {
 function minDist(colors) {
     let min = [];
     let mindist = calcDist([1, 0, 0], [0, 0, 0]); // distance between black and white
-    for (var i = 0; i < colors.length - 1; i++) {
-        for (var j = i + 1; j < colors.length; j++) {
+    for (let i = 0; i < colors.length - 1; i++) {
+        for (let j = i + 1; j < colors.length; j++) {
             let dist = calcDist(colors[i], colors[j]);
             if (dist < mindist) {
                 mindist = dist;
@@ -65,10 +67,10 @@ function genColors(n) { // generates colorset of n colors (normal vision)
     let colorSet = [[]];
     let newColors = [[]];
 
-    for (var i = 0; i < 300; i++) {
+    for (let i = 0; i < 300; i++) {
         let colors = randColors(n)
 
-        for (var j = 0; j < n; j++) {
+        for (let j = 0; j < n; j++) {
             newColors[j] = rgb255toOk(colors[j]);
         }
         let dist = minDist(newColors);
@@ -86,10 +88,10 @@ function genColorblindColors(n) { // generates n colors (cvd)
     let colorSet = [[]];
     let newColors = [[]];
 
-    for (var i = 0; i < 300; i++) {
+    for (let i = 0; i < 300; i++) {
         let colors = randColors(n)
 
-        for (var j = 0; j < n; j++) {
+        for (let j = 0; j < n; j++) {
             newColors[j] = rgbToOkCvd(colors[j])
 
         }
@@ -104,15 +106,15 @@ function genColorblindColors(n) { // generates n colors (cvd)
     return colorSet;
 }
 
-// reoptimizes for normal vision after colorblind
+// Reoptimize for normal vision after colorblind
 function reOptimize(n) { 
     let colorSets = [genColorblindColors(n), genColorblindColors(n), genColorblindColors(n), genColorblindColors(n), genColorblindColors(n)]
     let bestSet = [[]];
     let maxDist = 0;
 
-    for (var i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
         let newColors = [[]];
-        for (var j = 0; j < n; j++) {
+        for (let j = 0; j < n; j++) {
             newColors[j] = rgb255toOk(colorSets[i][j]);
         }
         var dist = minDist(newColors);
@@ -128,24 +130,21 @@ function reOptimize(n) {
     return bestSet;
 }
 
-// inputs: a vector x in [0,1]^3 and a nonzero vector v in R^3
-// output: the pair [a,b] with a <= b
+// Inputs: a vector x in [0,1]^3 and a nonzero vector v in R^3
+// Output: the pair [a,b] with a <= b
 function intersectBox(x, v)
 {
     let a = Number.NEGATIVE_INFINITY;
     let b = Number.POSITIVE_INFINITY;
     for (let i=0; i < 3; i++) {
-        // We will treat numbers within 10e-9 of 0 as close enough to 0.
-        // https://stackoverflow.com/questions/5595425/what-is-the-best-way-to-compare-floats-for-almost-equality-in-python
-        if (v[i] > 10e-9) {
+        if (v[i] > 0) {
             a = Math.max(a,-x[i]/v[i]);
             b = Math.min(b,(1-x[i])/v[i]);
-        } else if (v[i] < -10e-9) {
+        } else if (v[i] < 0) {
             a = Math.max(a,1-x[i]/v[i]);
             b = Math.min(b,-x[i]/v[i]);
         } else {
-            // no statement if v == 0
-            // https://stackoverflow.com/questions/35053371/what-is-the-benefit-of-terminating-if-else-if-constructs-with-an-else-clause
+            // do nothing
         }
         return [a,b];
     }
@@ -163,20 +162,20 @@ function reOptimize2(n){
     let newColorSet = [[]]; 
 
     // converting all colorset colors to linear
-    for(let i = 0; i < n; i++)
+    for (let i = 0; i < n; i++)
     {
         newColorSet[i] = rgb255toLin(colorSet[i]);
     }
     console.log(newColorSet);
     
-    for(let i = 0; i < n; i++)
+    for (let i = 0; i < n; i++)
     {
         dev = intersectBox(newColorSet[i], v);
         console.log(dev);
         //newColorSet[i] = newColorSet[i] + getRandomArbitrary(a,b) * v;
         rand = getRandomArbitrary(dev[0],dev[1]);
         console.log(rand);
-        for(let j = 0; j < 3; j++)
+        for (let j = 0; j < 3; j++)
         {
             newColorSet[i][j] = newColorSet[i][j] + (rand * v[j]);
         }
