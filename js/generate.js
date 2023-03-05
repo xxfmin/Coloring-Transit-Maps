@@ -147,8 +147,9 @@ function intersectBox(x, v)
             // no statement if v == 0
             // https://stackoverflow.com/questions/35053371/what-is-the-benefit-of-terminating-if-else-if-constructs-with-an-else-clause
         }
-        return [a,b];
+        return [a,b]
     }
+
 }
 
 // Input: pair of numbers a, b with a <= b
@@ -157,29 +158,47 @@ function getRandomArbitrary(a,b)
 {
     return Math.random() * (b - a) + a;
 }
+
+
 function reOptimize2(n){
     v = [0.92205465, -0.38601957, 0.02835689];
     let colorSet = genColorblindColors(n); // generate rgb255 colorset
-    let newColorSet = [[]]; 
-
+    let newColorSet = []; 
     // converting all colorset colors to linear
     for(let i = 0; i < n; i++)
     {
-        newColorSet[i] = rgb255toLin(colorSet[i]);
+        newColorSet.push(rgb255toLin(colorSet[i]));
+        for(let j = 0; j < 3; j++)
+        {
+            if(newColorSet[i][j] < 0)
+            {
+                newColorSet[i][j] = 0
+            }
+        }
     }
-    console.log(newColorSet);
+    console.log(newColorSet.join(" "));
+
     
     for(let i = 0; i < n; i++)
     {
         dev = intersectBox(newColorSet[i], v);
-        console.log(dev);
+        console.log(dev.join(" "));
         //newColorSet[i] = newColorSet[i] + getRandomArbitrary(a,b) * v;
         rand = getRandomArbitrary(dev[0],dev[1]);
         console.log(rand);
         for(let j = 0; j < 3; j++)
         {
             newColorSet[i][j] = newColorSet[i][j] + (rand * v[j]);
+            // if(newColorSet[i][j] < 0)
+            // {
+            //     newColorSet[i][j] = 0
+            // }
         }
+    }
+    for(let i = 0; i < n; i++)
+    {
+        newColorSet[i] = linToRgb(newColorSet[i]);
+        newColorSet[i] = rgb1ToRgb255(newColorSet[i]);
     }
     return newColorSet; // linear color space
 }
