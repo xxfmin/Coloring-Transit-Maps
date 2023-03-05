@@ -1,8 +1,8 @@
 
-function rgb255ToRgb1(a)
-{
-	return [a[0]/255, a[1]/255, a[2]/255];
-}
+// function rgb255ToRgb1(a)
+// {
+// 	return [a[0]/255, a[1]/255, a[2]/255];
+// }
 function rgb1ToRgb255(a)
 {
 	return [a[0]*255, a[1] * 255, a[2] * 255];
@@ -58,19 +58,39 @@ function linToOk(c)
 	]
        
 }
-function rgb255toLin(c)
+// function rgb255toLin(c)
+// {
+// 	out = rgb255ToRgb1(c)
+// 	return rgb1ToLin(out);
+// }
+// function rgb255toOk(c)
+// {
+// 	out = rgb255toLin(c)
+// 	return linToOk(out)
+// }
+// function rgbToOkCvd(c)
+// {
+// 	out = rgb255toLin(c);
+// 	out = linToCvd(out);
+// 	return linToOk(out);
+// }
+function linToOkCvd(colors)
 {
-	out = rgb255ToRgb1(c)
-	return rgb1ToLin(out);
+	out = [];
+	for(let i = 0; i < colors.length; i++)
+	{
+		out[i] = linToCvd(colors[i]);
+		out[i] = linToOk(out[i]);
+	}
+	return out;
 }
-function rgb255toOk(c)
+function linToRgb255(colors)
 {
-	out = rgb255toLin(c)
-	return linToOk(out)
-}
-function rgbToOkCvd(c)
-{
-	out = rgb255toLin(c);
-	out = linToCvd(out);
-	return linToOk(out);
+	out = []
+	for(let i = 0; i < colors.length; i++)
+	{
+		out[i] = linToRgb1(colors[i]);
+		out[i] = rgb1ToRgb255(out[i]);
+	}
+	return out;
 }

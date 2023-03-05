@@ -2,17 +2,17 @@
 function randomColor()
 {
     let c = [];
-    c[0] = Math.floor(Math.random() * 255);
-    c[1] = Math.floor(Math.random() * 255);
-    c[2] = Math.floor(Math.random() * 255);
+    c[0] = Math.random() * 1;
+    c[1] = Math.random() * 1;
+    c[2] = Math.random() * 1;
     return c;
 }
 
 // Check if the RGB255 color is within the given lightness bounds inside Oklab
 function checkBrightness(color) 
 {
-    color = rgb255toOk(color);
-    if(color[0] > 0.2 && color[0] < 0.85)
+    color = linToOk(color);
+    if(color[0] > 0.22 && color[0] < 0.82)
     {
         return true;
     }
@@ -30,17 +30,17 @@ function randColors(n)
         {
             color = randomColor();
         }
-        colors[i] = color;
+        colors.push(color);
     }
-    //console.log(colors);
+
     return colors;
 }
 
 //calculates distance between 2 colors in oklab
 function calcDist(color1, color2) {
-    L = (color1[0] - color2[0]) ** 2;
-    a = (color1[1] - color2[1]) ** 2;
-    b = (color1[2] - color2[2]) ** 2;
+    let L = (color1[0] - color2[0]) ** 2;
+    let a = (color1[1] - color2[1]) ** 2;
+    let b = (color1[2] - color2[2]) ** 2;
     return Math.sqrt(L + a + b);
 }
 
@@ -61,61 +61,33 @@ function minDist(colors) {
 }
 
 
-
-function genColors(n) { // generates colorset of n colors (normal vision)
+function genColors(n) { // generates n colors (cvd)
     let maxDist = 0;
     let colorSet = [[]];
     let newColors = [[]];
 
     for (let i = 0; i < 300; i++) {
         let colors = randColors(n)
-
-        for (let j = 0; j < n; j++) {
-            newColors[j] = rgb255toOk(colors[j]);
-        }
+        newColors = linToOkCvd(colors)
         let dist = minDist(newColors);
         if (dist > maxDist) {
             maxDist = dist;
             colorSet = colors;
         }
     }
-    //console.log(maxDist);
-    return colorSet;
-}
-
-function genColorblindColors(n) { // generates n colors (cvd)
-    let maxDist = 0;
-    let colorSet = [[]];
-    let newColors = [[]];
-
-    for (let i = 0; i < 300; i++) {
-        let colors = randColors(n)
-
-        for (let j = 0; j < n; j++) {
-            newColors[j] = rgbToOkCvd(colors[j])
-
-        }
-        let dist = minDist(newColors);
-        if (dist > maxDist) {
-            maxDist = dist;
-            colorSet = colors;
-        }
-    }
-    //console.log(maxDist);
-
     return colorSet;
 }
 
 // Reoptimize for normal vision after colorblind
 function reOptimize(n) { 
-    let colorSets = [genColorblindColors(n), genColorblindColors(n), genColorblindColors(n), genColorblindColors(n), genColorblindColors(n)]
+    let colorSets = [genColors(n), genColors(n), genColors(n), genColors(n), genColors(n)]
     let bestSet = [[]];
     let maxDist = 0;
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < colorSets.length; i++) {
         let newColors = [[]];
         for (let j = 0; j < n; j++) {
-            newColors[j] = rgb255toOk(colorSets[i][j]);
+            newColors[j] = linToOk(colorSets[i][j]);
         }
         var dist = minDist(newColors);
         if (dist > maxDist) {
@@ -123,11 +95,10 @@ function reOptimize(n) {
             bestSet = colorSets[i];
         }
     }
-    // console.log(colorSets);
+    // console.log(maxDist);
     // console.log(bestSet);
-    console.log(maxDist);
-    console.log(bestSet);
-    return bestSet;
+
+    return linToRgb255(bestSet);
 }
 
 // Inputs: a vector x in [0,1]^3 and a nonzero vector v in R^3
@@ -161,45 +132,101 @@ function getRandomArbitrary(a,b)
 
 function reOptimize2(n){
     v = [0.92205465, -0.38601957, 0.02835689];
-    let colorSet = genColorblindColors(n); // generate rgb255 colorset
+    let colorSet = genColors(n);
     let newColorSet = []; 
-    // converting all colorset colors to linear
-    for (let i = 0; i < n; i++)
-    {
-        newColorSet.push(rgb255toLin(colorSet[i]));
-        for(let j = 0; j < 3; j++)
-        {
-            if(newColorSet[i][j] < 0)
-            {
-                newColorSet[i][j] = 0
-            }
-        }
-    }
-    console.log(newColorSet.join(" "));
-
     
     for (let i = 0; i < n; i++)
     {
-        dev = intersectBox(newColorSet[i], v);
-        console.log(dev.join(" "));
-        //newColorSet[i] = newColorSet[i] + getRandomArbitrary(a,b) * v;
-        rand = getRandomArbitrary(dev[0],dev[1]);
+        let shift = intersectBox(colorSet[i], v);
+        console.log(shift.join(" "));
+        rand = getRandomArbitrary(shift[0],shift[1]);
         console.log(rand);
-        for (let j = 0; j < 3; j++)
-        {
-            newColorSet[i][j] = newColorSet[i][j] + (rand * v[j]);
-            // if(newColorSet[i][j] < 0)
-            // {
-            //     newColorSet[i][j] = 0
-            // }
-        }
+        newColor = [colorSet[i][0] + (rand * v[0]), 
+                    colorSet[i][1] + (rand * v[1]), 
+                    colorSet[i][2] + (rand * v[2])];
+        newColorSet.push(newColor);
     }
+    console.log(newColorSet.join(" "));
+
     for(let i = 0; i < n; i++)
     {
-        newColorSet[i] = linToRgb(newColorSet[i]);
+        newColorSet[i] = linToRgb1(newColorSet[i]);
         newColorSet[i] = rgb1ToRgb255(newColorSet[i]);
     }
+
     return newColorSet; // linear color space
 }
+
+function graspInit(m)
+{
+    // generate 100 points
+    let N = 100;
+    let points = [];
+    let pointsOk = [];
+    for(let i = 0; i < N; i++)
+    {
+        color = randomColor();
+        while(!checkBrightness(color))
+        {
+            color = randomColor();
+        }
+        points.push(color);
+        pointsOk.push(linToOk(color));
+    }
+    
+    
+
+    let distances = [];
+
+    for(let i = 0; i < N; i++)
+    {
+        let d = [];
+        for(let j = 0; j < N; j++)
+        {
+            d.push(calcDist(pointsOk[i], pointsOk[j]));
+        }
+        distances.push(d);
+    }
+
+    console.log(distances.join("\n\n\n"));
+
+    //first point
+    const point1 = Math.floor(Math.random() * N);
+
+    let subset = [];
+    subset.push(point1);
+    while(subset.length < m)
+    {
+        let bestScore = 100;
+        let bestPoint = [];
+
+        for(let i = 0; i < (N - subset.length); i++)
+        {
+
+        }
+    }
+    //initialize a variable to remember the best score
+    //variable to remember the point with the best score
+    //loop through every remaining point in N
+        //initialize a variable that contains the score
+        //loop throught the subset
+            //compare between the point in N with the point in subset
+            //if the distance calculated is smaller than score, score = newDistance
+        //if the score is bigger than the previous scores, remember it
+
+    
+
+}
+
+
+//grasp(7);
+
+
+
+
+
+
+
+
 
 console.log(reOptimize2(7));
