@@ -7,29 +7,27 @@ function rgb1ToRgb255(a)
 {
 	return [a[0]*255, a[1] * 255, a[2] * 255];
 }
-function rgbToLin(C_srgb)
+function rgb1ToLin(C_srgb)
 {
 	let out = [];
-	a = 0.055;
 	for(let i = 0; i < 3; i++)
 	{
-		if(C_srgb[i] < 0.0405)
+		if(C_srgb[i] <= 0.04045)
 			out[i] = C_srgb[i] / 12.92;
 		else
-			out[i] = ((C_srgb[i] + a) / (a + 1)) ** 2.4;
+			out[i] = ((C_srgb[i] + 0.055) / (1.055)) ** 2.4;
 	}
     return out
 }
-function linToRgb(c_lin)
+function linToRgb1(c_lin)
 {
 	let out = [];
-	a = 0.055;
 	for(let i = 0; i < 3; i++)
 	{
 		if(c_lin[i] <= 0.0031308)
 			out[i] = c_lin[i] * 12.92;
 		else
-			out[i] = (1+a) * c_lin[i] ** (1/2.4) - a;
+			out[i] = 1.055 * c_lin[i] ** (1/2.4) - 0.055;	
 	}
 	return out
 }
@@ -63,7 +61,7 @@ function linToOk(c)
 function rgb255toLin(c)
 {
 	out = rgb255ToRgb1(c)
-	return rgbToLin(out);
+	return rgb1ToLin(out);
 }
 function rgb255toOk(c)
 {
