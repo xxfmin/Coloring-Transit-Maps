@@ -149,17 +149,17 @@ function reOptimize2(n) {
 
 
 function grasp(m) {
-    // generate 1000 random points, accounting for light/dark
+    // generate 500 random points, accounting for light/dark
     let N = 500;
     let points = [];
     let pointsOk = [];
     for (let i = 0; i < N; i++) {
         color = randomColor();
-        while (!checkBrightness(color)) {
+        while (!checkBrightness(color)) { // checks if a linear color is light/dark enough
             color = randomColor();
         }
         points.push(color);
-        pointsOk.push(linToCvd(linToOk(color)));
+        pointsOk.push(linToOk(linToCvd(color)));
     }
 
 
@@ -248,5 +248,13 @@ function grasp_init(m)
             best = JSON.parse(JSON.stringify(curr));
         }
     }
+    let testDist = [];
+    for(let i = 0; i < m; i++)
+    {
+        testDist.push(linToOk(best[i]));
+    }
+    console.log("yes:");
+    console.log(minDist(testDist));
+    console.log(bestDist);
     return linToRgb255(best);
 }
