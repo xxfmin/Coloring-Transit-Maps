@@ -17,7 +17,7 @@
     var lineCount = document.getElementById("lineCount").value;
     var lines = "";
 
-    colorset = reOptimize(lineCount);
+    colorset = grasp(lineCount);
     for (var i = 0; i < lineCount; i++) {
       var red = colorset[i][0];
       var green = colorset[i][1];

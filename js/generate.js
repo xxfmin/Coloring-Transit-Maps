@@ -12,7 +12,7 @@ function randomColor()
 function checkBrightness(color) 
 {
     color = linToOk(color);
-    if(color[0] > 0.22 && color[0] < 0.82)
+    if(color[0] > 0.23 && color[0] < 0.82)
     {
         return true;
     }
@@ -157,10 +157,34 @@ function reOptimize2(n){
     return newColorSet; // linear color space
 }
 
+function minDistOfSet(set)
+{
+    let minDist = 100;
+    let setOk = [];
+    for(let i = 0; i < set.length; i++)
+    {
+        setOk.push(linToOk(set[i]));
+    }
+
+    for(let i = 0; i < set.length-1; i++)
+    {
+        for(let j = 1; j < set.length; j++)
+        {
+            let dist = calcDist(setOk[i], setOk[j]);
+            if(dist < minDist)
+            {
+                minDist = dist;
+            }
+        }
+    }
+    return minDist;
+}
+
+
 function grasp(m)
 {
-    // generate 100 random points
-    let N = 100;
+    // generate 100 random points, accounting for light/dark
+    let N = 1000;
     let points = [];
     let pointsOk = [];
     for(let i = 0; i < N; i++)
@@ -225,22 +249,49 @@ function grasp(m)
         subset.push(bestPoint);
 
     }
-    console.log(subset);
-    //pseudocode:
-    //initialize a variable to remember the best score
-    //variable to remember the point with the best score
-    //loop through every remaining point in N
-        //initialize a variable that contains the score
-        //loop throught the subset
-            //compare between the point in N with the point in subset
-            //if the distance calculated is smaller than score, score = newDistance
-        //if the score is bigger than the previous scores, remember it
+    console.log(subset.join(" "));
+
+
+    // search phase
+
+    // loop through existing subset
+        // calculate current min distance from any other point in subset
+        //loop through all unchosen points
+            // if minimum distance from the other points is > current one
+                // update min distance
+                // update min point
+    let currentDist = minDistOfSet(subset);
+    for(let itr = 0; itr < 5; itr++)
+    {
+        for(let i = 0; i < subset.length; i++) // testing if each point can be improved
+        {
+            for(let j = 0; j < N; j++)
+            {
+                if(!subset.includes(points[j]))
+                {
+                    let testSet = JSON.parse(JSON.stringify(subset));
+                    testSet[i] = points[j]; // replace test point with a candidate poitn
+                    let testDist = minDistOfSet(testSet); // calc minDist of set with candidate point
+                    if(testDist > currentDist) 
+                    {
+                        currentDist = testDist;
+                        subset = JSON.parse(JSON.stringify(testSet));
+                    }
+                }
+            }
+            // console.log(subset.join(" "));
+
+        }
+        console.log(subset.join(" "));
+    }
+console.log(linToRgb255(subset));
+
+return linToRgb255(subset);
 
 }
-graspInit(7);
 
 
-//grasp(7);
+//grasp(10);
 
 
 
