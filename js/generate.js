@@ -157,9 +157,9 @@ function reOptimize2(n){
     return newColorSet; // linear color space
 }
 
-function graspInit(m)
+function grasp(m)
 {
-    // generate 100 points
+    // generate 100 random points
     let N = 100;
     let points = [];
     let pointsOk = [];
@@ -174,10 +174,8 @@ function graspInit(m)
         pointsOk.push(linToOk(color));
     }
     
-    
-
+    // generate 2D array of all distances between points
     let distances = [];
-
     for(let i = 0; i < N; i++)
     {
         let d = [];
@@ -188,23 +186,47 @@ function graspInit(m)
         distances.push(d);
     }
 
-    console.log(distances.join("\n\n\n"));
 
-    //first point
-    const point1 = Math.floor(Math.random() * N);
-
+    // randomly choose first point
+    const point1_index = Math.floor(Math.random() * N);
     let subset = [];
-    subset.push(point1);
+    subset.push(points[point1_index]);
+
+    // construction phase
     while(subset.length < m)
     {
-        let bestScore = 100;
+        let bestScore = 0;
         let bestPoint = [];
 
-        for(let i = 0; i < (N - subset.length); i++)
+        for(let i = 0; i < N; i++) // check all points not in subset
         {
+            let currScore = 100;
+            if(!subset.includes(points[i]))
+            {
+                for(let j = 0; j < subset.length; j++) // compare all subset poitns
+                {
+                    let ind = points.indexOf(subset[j]);
+                    let dist = distances[ind][i];
+                    if(dist < currScore)
+                    {
+                        currScore = dist; // get the smallest distance between any subset point and candidate point
+                    }
+                }
+            }
+            else
+                currScore = 0; // if comparing the same point, then score := 0
 
+            if(currScore > bestScore) // if the min distance of candidate point is the max
+            {
+                bestScore = currScore;
+                bestPoint = points[i];
+            }
         }
+        subset.push(bestPoint);
+
     }
+    console.log(subset);
+    //pseudocode:
     //initialize a variable to remember the best score
     //variable to remember the point with the best score
     //loop through every remaining point in N
@@ -214,9 +236,8 @@ function graspInit(m)
             //if the distance calculated is smaller than score, score = newDistance
         //if the score is bigger than the previous scores, remember it
 
-    
-
 }
+graspInit(7);
 
 
 //grasp(7);
@@ -229,4 +250,4 @@ function graspInit(m)
 
 
 
-console.log(reOptimize2(7));
+//console.log(reOptimize2(7));
