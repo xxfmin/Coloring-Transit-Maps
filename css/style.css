@@ -24,6 +24,23 @@ p {
     line-height: 1.5;
     text-align: center;
 }
+.box {
+    /* width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 10px; */
+    width: 100px;
+	height: 100px;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 10px;
+	color: #fff;
+	/* border-radius: 5px; */
+    display: inline-block;
+  }
+
  /* .btn-primary
 {
     background-color: white !important;
