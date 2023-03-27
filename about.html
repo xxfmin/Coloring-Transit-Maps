@@ -15,25 +15,59 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-        fill="currentColor" class="bi bi-bus-front-fill" viewBox="0 0 16 16">
-        <path
-          d="M16 7a1 1 0 0 1-1 1v3.5c0 .818-.393 1.544-1 2v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V14H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a2.496 2.496 0 0 1-1-2V8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1V2.64C1 1.452 1.845.408 3.064.268A43.608 43.608 0 0 1 8 0c2.1 0 3.792.136 4.936.268C14.155.408 15 1.452 15 2.64V4a1 1 0 0 1 1 1v2ZM3.552 3.22A43.306 43.306 0 0 1 8 3c1.837 0 3.353.107 4.448.22a.5.5 0 0 0 .104-.994A44.304 44.304 0 0 0 8 2c-1.876 0-3.426.109-4.552.226a.5.5 0 1 0 .104.994ZM8 4c-1.876 0-3.426.109-4.552.226A.5.5 0 0 0 3 4.723v3.554a.5.5 0 0 0 .448.497C4.574 8.891 6.124 9 8 9c1.876 0 3.426-.109 4.552-.226A.5.5 0 0 0 13 8.277V4.723a.5.5 0 0 0-.448-.497A44.304 44.304 0 0 0 8 4Zm-3 7a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm8 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-7 0a1 1 0 0 0 1 1h2a1 1 0 1 0 0-2H7a1 1 0 0 0-1 1Z" />
-      </svg></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" href="generate-lines.html">Generate Lines</a>
-        <a class="nav-item nav-link" href="ColorExtractorImproved/index.html">Extract Colors</a>
-
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    <div class="container"><a href="index.html" class="navbar-brand d-flex align-items-center"> <i class="fa fa-snowflake-o fa-lg text-primary mr-2"></i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      fill="currentColor" class="bi bi-bus-front-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 7a1 1 0 0 1-1 1v3.5c0 .818-.393 1.544-1 2v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V14H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a2.496 2.496 0 0 1-1-2V8a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1V2.64C1 1.452 1.845.408 3.064.268A43.608 43.608 0 0 1 8 0c2.1 0 3.792.136 4.936.268C14.155.408 15 1.452 15 2.64V4a1 1 0 0 1 1 1v2ZM3.552 3.22A43.306 43.306 0 0 1 8 3c1.837 0 3.353.107 4.448.22a.5.5 0 0 0 .104-.994A44.304 44.304 0 0 0 8 2c-1.876 0-3.426.109-4.552.226a.5.5 0 1 0 .104.994ZM8 4c-1.876 0-3.426.109-4.552.226A.5.5 0 0 0 3 4.723v3.554a.5.5 0 0 0 .448.497C4.574 8.891 6.124 9 8 9c1.876 0 3.426-.109 4.552-.226A.5.5 0 0 0 13 8.277V4.723a.5.5 0 0 0-.448-.497A44.304 44.304 0 0 0 8 4Zm-3 7a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm8 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-7 0a1 1 0 0 0 1 1h2a1 1 0 1 0 0-2H7a1 1 0 0 0-1 1Z" />
+    </svg></a>
+      <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="index.html" class="nav-link font-italic"> Home </a></li>
+          <li class="nav-item active"><a href="generate-lines.html" class="nav-link font-italic"> Generate </a></li>
+          <li class="nav-item active"><a href="ColorExtractorImproved/index.html" class="nav-link font-italic"> Extract Colors </a></li>
+        </ul>
       </div>
     </div>
   </nav>
+
+
+<div class="bg-light">
+  <div class="container py-5">
+    <div class="row h-100 align-items-center py-5">
+      <div class="col-lg-6">
+        <h1 class="display-4">About Us</h1>
+        <!-- <p class="lead text-muted mb-0">Create a minimal about us page using Bootstrap 4.</p> -->
+      </div>
+      <div class="col-lg-6 d-none d-lg-block"><img src="https://bootstrapious.com/i/snippets/sn-about/illus.png" alt="" class="img-fluid"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="bg-white py-5">
+  <div class="container py-5">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
+        <h2 class="font-weight-light">Introduction</h2>
+        <p class="font-italic text-muted mb-4">There has been extensive research into improving the legibility of transit maps. However, selecting the optimal colors for transit lines is often neglected. Theoretically, if we use distinctly different colors for each transit line, the map becomes more legible and easier to read, improving the overall experience for the user. However, some challenges come into account when discussing the right colors to use for maps. For example, color-blind individuals may have difficulty distinguishing between certain colors. With these challenges in mind, we want to build an algorithm that effectively produces colors far apart from each other while making subway maps accessible for as many groups of people as possible.
+        </a>
+      </div>
+      <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="https://bootstrapious.com/i/snippets/sn-about/img-1.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-5 px-5 mx-auto"><img src="https://bootstrapious.com/i/snippets/sn-about/img-2.jpg" alt="" class="img-fluid mb-4 mb-lg-0"></div>
+      <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
+        <h2 class="font-weight-light">Abstract</h2>
+        <p class="font-italic text-muted mb-4">Transit maps are a useful tool in navigating transportation. Despite its necessity, many maps, including the FSU bus system, are difficult to read and especially inaccessible to those with color vision deficiencies. As a result, we produce a program that can dynamically generate a set of colors. Our program generates n colors that are different from each other; these colors are different for both the average population as well as for colorblind individuals. To produce an optimal set of colors, we used a perceptually uniform color space, Oklab, to accurately maximize the minimum Euclidean distance between any two colors from the set of colors based on a deuteranopia perspective. Next, we further optimized our color set for normal vision and then integrated our color generating program into a functional website, giving users the opportunity to interact with our code. When we compare our program’s generated colors to FSU’s transit map, we perceive a noticeable improvement in color contrasts. 
+        </p><a href="#" class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- 
 
   <h1>ABOUT</h1>
 
@@ -52,20 +86,86 @@
       discourse on the role of color in information design.
     </p>
 
-    <button class="arrow" onclick="changeText()">&#9658;</button>
-  </div>
+  </div> -->
 
-  <script>
-    function changeText() {
-      var textChange = document.getElementById("textBox");
-      if (textChange.innerHTML === "Subways maps have been considered to be a useful tool in navigating transportation in the everyday life of a commuter. However, there seems to be a deficiency in current subways maps not taking into account color blind individuals, making it inaccessible for them to easily read subway systems. There has been extensive research into improving the legibility of transit maps by using techniques like altering the geography (reword this https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14030) however, development on algorithmically selecting the optimal colors can be neglected. We aim to produce a program that can compute several dots on a graph that are as different as possible from one another, making them easier to read by the consumer. For this particular research topic, we use Colorspacious, a python library, to code a series of colors that are as far apart in the CIECAM02-UCS color space as possible, while taking into account different types of color blindness.We expect this research approach to improve the quality of virtual subways maps, making them easier to read and more accessible to use for individuals with color vision deficiency.") {
-        textChange.innerHTML = "CHANGE THE TEXT";
-      }
-      else {
-        textChange.innerHTML = "Subways maps have been considered to be a useful tool in navigating transportation in the everyday life of a commuter. However, there seems to be a deficiency in current subways maps not taking into account color blind individuals, making it inaccessible for them to easily read subway systems. There has been extensive research into improving the legibility of transit maps by using techniques like altering the geography (reword this https://onlinelibrary.wiley.com/doi/full/10.1111/cgf.14030) however, development on algorithmically selecting the optimal colors can be neglected. We aim to produce a program that can compute several dots on a graph that are as different as possible from one another, making them easier to read by the consumer. For this particular research topic, we use Colorspacious, a python library, to code a series of colors that are as far apart in the CIECAM02-UCS color space as possible, while taking into account different types of color blindness.We expect this research approach to improve the quality of virtual subways maps, making them easier to read and more accessible to use for individuals with color vision deficiency.";
-      }
-    }
-  </script>
+
+
+
+
+
+
+<div class="bg-light py-5">
+  <div class="container py-5">
+    <div class="row mb-4">
+      <div class="col-lg-5">
+        <h2 class="display-4 font-weight-light">Our team</h2>
+        <p class="font-italic text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-4.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <h5 class="mb-0">Manuella Nevoresky</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+          <ul class="social mb-0 list-inline mt-3">
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- End-->
+
+      <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-3.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <h5 class="mb-0">Samuel Hardy</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+          <ul class="social mb-0 list-inline mt-3">
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- End-->
+
+      <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-2.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <h5 class="mb-0">Tom Sunderland</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+          <ul class="social mb-0 list-inline mt-3">
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- End-->
+
+      <!-- Team item-->
+      <div class="col-xl-3 col-sm-6 mb-5">
+        <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://bootstrapious.com/i/snippets/sn-about/avatar-1.png" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+          <h5 class="mb-0">John Tarly</h5><span class="small text-uppercase text-muted">CEO - Founder</span>
+          <ul class="social mb-0 list-inline mt-3">
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- End-->
+
+    </div>
+  </div>
+</div>
+
+
+
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
