@@ -9,8 +9,8 @@ function randomColor() {
 
 // Check if the RGB255 color is within the given lightness bounds inside Oklab
 function checkBrightness(color) {
-    color = linToOk(color);
-    if (color[0] > 0.23 && color[0] < 0.82) {
+    let c_color = linToOk(color);
+    if (c_color[0] > 0.23 && c_color[0] < 0.82) {
         return true;
     }
     return false;
@@ -150,8 +150,8 @@ function reOptimize2(n) {
 
 function grasp(m) {
     // generate 500 random points, accounting for light/dark
-    let N = 500;
-    let points = [];
+    let N = 750;
+    let points = []; // rgb color
     let pointsOk = [];
     for (let i = 0; i < N; i++) {
         color = randomColor();
@@ -237,24 +237,25 @@ function grasp(m) {
 function grasp_init(m)
 {
     let best = grasp(m);
-    let bestDist = minDist(linToOkCvd(best));
-    for(let i = 1; i < 10; i++)
+    let bestDist = minDist(linToOk(best));
+    for(let i = 0; i < 10; i++)
     {
         let curr = grasp(m);
-        let currDist = minDist(linToOkCvd(curr));
+        let currDist = minDist(linToOk(curr));
 
         if(currDist > bestDist)
         {
             best = JSON.parse(JSON.stringify(curr));
+            bestDist = currDist;
         }
     }
-    let testDist = [];
-    for(let i = 0; i < m; i++)
-    {
-        testDist.push(linToOk(best[i]));
-    }
-    console.log("yes:");
-    console.log(minDist(testDist));
-    console.log(bestDist);
+    // let testDist = [];
+    // for(let i = 0; i < m; i++)
+    // {
+    //     testDist.push(linToOk(best[i]));
+    // }
+    // console.log("yes:");
+    // console.log(minDist(testDist));
+    // console.log(bestDist);
     return linToRgb255(best);
 }
