@@ -41,6 +41,11 @@ p {
     display: inline-block;
   }
 
+  nav{
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+
+  }
+
  /* .btn-primary
 {
     background-color: white !important;
