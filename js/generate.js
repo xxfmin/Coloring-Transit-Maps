@@ -105,14 +105,13 @@ function intersectBox(x, v) {
             a = Math.max(a, -x[i] / v[i]);
             b = Math.min(b, (1 - x[i]) / v[i]);
         } else if (v[i] < 0) {
-            a = Math.max(a, 1 - x[i] / v[i]);
+            a = Math.max(a, (1 - x[i]) / v[i]);
             b = Math.min(b, -x[i] / v[i]);
         } else {
             // do nothing
         }
-        return [a, b]
     }
-
+    return [a, b];
 }
 
 // Input: pair of numbers a, b with a <= b
