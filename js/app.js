@@ -1,7 +1,7 @@
 function generateBoxes() {
   const boxCount = document.getElementById("lineCount").value;
 
-  let colorset = grasp_init(boxCount);
+  let colorset = reOptimize(boxCount);
 
   document.getElementById("boxContainer").innerHTML = "";
 

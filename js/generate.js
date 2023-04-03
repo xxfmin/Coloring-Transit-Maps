@@ -1,4 +1,4 @@
-// Output: one random rgb255 color
+// Output: one random linRGB color
 function randomColor() {
     let c = [];
     c[0] = Math.random() * 1;
@@ -17,7 +17,7 @@ function checkBrightness(color) {
 }
 
 // Input: positive integer n
-// Output: n random colors in RGB255 that account for brightness
+// Output: n random colors in linRGB that account for brightness
 function randColors(n) {
     let colors = [];
     for (let i = 0; i < n; i++) {
@@ -27,7 +27,6 @@ function randColors(n) {
         }
         colors.push(color);
     }
-
     return colors;
 }
 
@@ -69,30 +68,7 @@ function genColors(n) { // generates n colors (cvd)
             colorSet = colors;
         }
     }
-    return colorSet;
-}
-
-// Reoptimize for normal vision after colorblind
-function reOptimize(n) {
-    let colorSets = [genColors(n), genColors(n), genColors(n), genColors(n), genColors(n)]
-    let bestSet = [[]];
-    let maxDist = 0;
-
-    for (let i = 0; i < colorSets.length; i++) {
-        let newColors = [[]];
-        for (let j = 0; j < n; j++) {
-            newColors[j] = linToOk(colorSets[i][j]);
-        }
-        var dist = minDist(newColors);
-        if (dist > maxDist) {
-            maxDist = dist;
-            bestSet = colorSets[i];
-        }
-    }
-    // console.log(maxDist);
-    // console.log(bestSet);
-
-    return linToRgb255(bestSet);
+    return colorSet; // returns in linRGB
 }
 
 // Inputs: a vector x in [0,1]^3 and a nonzero vector v in R^3
@@ -119,33 +95,6 @@ function intersectBox(x, v) {
 function getRandomArbitrary(a, b) {
     return Math.random() * (b - a) + a;
 }
-
-
-function reOptimize2(n) {
-    v = [0.92205465, -0.38601957, 0.02835689];
-    let colorSet = genColors(n);
-    let newColorSet = [];
-
-    for (let i = 0; i < n; i++) {
-        let shift = intersectBox(colorSet[i], v);
-        console.log(shift.join(" "));
-        rand = getRandomArbitrary(shift[0], shift[1]);
-        console.log(rand);
-        newColor = [colorSet[i][0] + (rand * v[0]),
-        colorSet[i][1] + (rand * v[1]),
-        colorSet[i][2] + (rand * v[2])];
-        newColorSet.push(newColor);
-    }
-    console.log(newColorSet.join(" "));
-
-    for (let i = 0; i < n; i++) {
-        newColorSet[i] = linToRgb1(newColorSet[i]);
-        newColorSet[i] = rgb1ToRgb255(newColorSet[i]);
-    }
-
-    return newColorSet; // linear color space
-}
-
 
 function grasp(m) {
     // generate 500 random points, accounting for light/dark
@@ -210,7 +159,6 @@ function grasp(m) {
     }
     //console.log(subset.join(" "));
 
-
     // search phase
     let currentDist = minDist(linToOkCvd(subset));
 
@@ -240,7 +188,7 @@ function grasp_init(m)
     for(let i = 0; i < 10; i++)
     {
         let curr = grasp(m);
-        let currDist = minDist(linToOk(curr));
+        let currDist = minDist(linToOkCvd(curr));
 
         if(currDist > bestDist)
         {
@@ -248,13 +196,33 @@ function grasp_init(m)
             bestDist = currDist;
         }
     }
-    // let testDist = [];
-    // for(let i = 0; i < m; i++)
-    // {
-    //     testDist.push(linToOk(best[i]));
-    // }
-    // console.log("yes:");
-    // console.log(minDist(testDist));
-    // console.log(bestDist);
     return linToRgb255(best);
+}
+
+function reOptimize(n) {
+    v = [0.92205465, -0.38601957, 0.02835689];
+    let colorSet = grasp_init(n);
+    for(let i = 0; i < n; i++)
+    {
+        colorSet[i] = rgb255toLin(colorSet[i]);
+    }
+    let newColorSet = [];
+
+    for (let i = 0; i < n; i++) {
+        let shift = intersectBox(colorSet[i], v);
+        console.log(shift.join(" "));
+        rand = getRandomArbitrary(shift[0], shift[1]);
+        console.log(rand);
+        newColor = [colorSet[i][0] + (rand * v[0]),
+        colorSet[i][1] + (rand * v[1]),
+        colorSet[i][2] + (rand * v[2])];
+        newColorSet.push(newColor);
+    }
+    // console.log(newColorSet.join(" "));
+    for (let i = 0; i < n; i++) {
+        newColorSet[i] = linToRgb1(newColorSet[i]);
+        newColorSet[i] = rgb1ToRgb255(newColorSet[i]);
+    }
+
+    return newColorSet; // colors are in rgb255
 }
